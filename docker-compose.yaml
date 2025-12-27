@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -8,3 +7,13 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+
+  order:
+      build:
+        context: ./services/order
+        dockerfile: DockerFile
+      env_file: .env
+      depends_on:
+        - rabbitmq
+      ports:
+        - "8001:8000"
