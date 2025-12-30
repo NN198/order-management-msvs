@@ -49,6 +49,7 @@ async def publish_event(message: dict, routing_key: str):
             routing_key=routing_key
         )
 
+
 # -------------------------
 # API endpoint
 # -------------------------

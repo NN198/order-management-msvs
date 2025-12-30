@@ -17,3 +17,24 @@ services:
         - rabbitmq
       ports:
         - "8001:8000"
+
+  insight-service:
+    build: 
+      context: ./services/insight_service
+      dockerfile: DockerFile
+    env_file: .env
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8002:8000"
+
+  market-ingestor:
+    build: 
+      context: ./services/market_ingestor
+      dockerfile: DockerFile
+    env_file: .env
+    depends_on:
+      - rabbitmq
+    ports: 
+      - "8003:8000"
+

@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+pandas
+numpy
+scipy
+
+# RAG
+sentence-transformers
+faiss-cpu
+
+# Optional (later)
+openai
