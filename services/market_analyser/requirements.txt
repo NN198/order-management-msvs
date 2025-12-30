@@ -1,0 +1,6 @@
+aio-pika
+uvicorn
+pandas
+numpy
+scipy
+python-dotenv
