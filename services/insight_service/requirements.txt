@@ -5,6 +5,7 @@ python-dotenv
 pandas
 numpy
 scipy
+aio-pika
 
 # RAG
 sentence-transformers

@@ -15,7 +15,10 @@
 #     return insight
 
 from fastapi import FastAPI
+import asyncio
 from agents.market_analyst import analyze_market
+from consumers.market_consumer import LATEST_MARKET_DATA
+from consumers.market_consumer import consume_market_data
 
 app = FastAPI()
 
@@ -29,17 +32,20 @@ def debug():
     return {"routes": [route.path for route in app.routes]}
 
 
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(consume_market_data())
+
+@app.get("/debug/cache")
+def debug_cache():
+    return LATEST_MARKET_DATA
+
+
 @app.get("/insights/market")
-def market_insight():
-    """
-    Temporary stub: we will replace this with real data ingestion next
-    """
+def market_insight(symbol: str = "RELIANCE.BSE"):
+    prices = LATEST_MARKET_DATA.get(symbol)
 
-    # Temporary sample price history (will come from market_ingestor later)
-    prices = [
-        242.1, 242.5, 243.0, 242.9,
-        243.4, 244.1, 244.8, 245.0, 246.2
-    ]
+    if not prices:
+        return {"status": "waiting for market data"}
 
-    insight = analyze_market("RELIANCE.BSE", prices)
-    return insight
+    return analyze_market(symbol, prices)

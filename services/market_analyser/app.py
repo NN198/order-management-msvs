@@ -7,6 +7,10 @@ import numpy as np
 from scipy.stats import zscore
 from collections import deque
 from dotenv import load_dotenv
+from insight_service.consumers.market_consumer import (
+    consume_market_data,
+    LATEST_MARKET_DATA
+)
 
 load_dotenv()
 
